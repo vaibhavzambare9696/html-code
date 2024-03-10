@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp-like Chat Box</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5;
+    }
+
+    .chat-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .chat-header {
+        background-color: #075e54;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .chat-messages {
+        padding: 10px;
+        overflow-y: scroll;
+        max-height: 300px;
+    }
+
+    .message {
+        background-color: #dcf8c6;
+        color: #000;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        max-width: 70%;
+    }
+
+    .message.other {
+        background-color: #fff;
+        color: #000;
+        align-self: flex-start;
+    }
+
+    .message.mine {
+        background-color: #dcf8c6;
+        color: #000;
+        align-self: flex-end;
+    }
+
+    .chat-input {
+        display: flex;
+        background-color: #f0f2f5;
+        padding: 10px;
+    }
+
+    .chat-input input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    .chat-input button {
+        background-color: #075e54;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .chat-input button:hover {
+        background-color: #128c7e;
+    }
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>WhatsApp-like Chat Box</h2>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+        <!-- Messages will be appended here -->
+    </div>
+    <div class="chat-input">
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        var messageInput = document.getElementById('message-input');
+        var message = messageInput.value.trim();
+
+        if (message !== '') {
+            var chatMessages = document.getElementById('chat-messages');
+            var newMessage = document.createElement('div');
+            newMessage.className = 'message mine';
+            newMessage.innerHTML = message;
+            chatMessages.appendChild(newMessage);
+            
+            // Clear input after sending message
+            messageInput.value = '';
+
+            // Simulate receiving a response after 1 second
+            setTimeout(receiveResponse, 1000);
+        }
+    }
+
+    function receiveResponse() {
+        var chatMessages = document.getElementById('chat-messages');
+        var newMessage = document.createElement('div');
+        newMessage.className = 'message other';
+        newMessage.innerHTML = 'This is a response.';
+        chatMessages.appendChild(newMessage);
+
+        // Scroll to bottom of chat messages
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
